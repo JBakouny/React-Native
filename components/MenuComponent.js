@@ -7,9 +7,11 @@ function Menu(props) {
     const renderMenuItem = ({item, index}) => {
 
         return (
-                <ListItem key={index} bottomDivider>
+                <ListItem key={index} onPress={() => props.onPress(item.id)} bottomDivider>
+                  <Avatar source={ require('./images/uthappizza.png') }/>
                   <ListItem.Content>
                     <ListItem.Title>{item.name}</ListItem.Title>
+                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
         );
