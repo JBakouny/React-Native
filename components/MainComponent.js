@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
-import Menu from './MenuComponent';
+import MenuScreen from './MenuComponent';
 import { DISHES } from '../shared/dishes';
-import Dishdetail from './DishDetailComponent';
-import { View } from 'react-native';
+import DishDetailScreen from './DishDetailComponent';
+import { View, Platform } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+const MenuNavigator = createStackNavigator(
+  {
+    Menu: MenuScreen,
+    DishDetail: DishDetailScreen,
+  },
+  {
+    initialRouteName: 'Menu'
+  }
+);
+
+const MenuContainer = createAppContainer(MenuNavigator);
 
 class Main extends Component {
   constructor(props) {
@@ -20,10 +34,7 @@ class Main extends Component {
   render() {
  
     return (
-      <View style={{flex:1}}>
-        <Menu dishes={this.state.dishes} onPress={(dishId) => this.onDishSelect(dishId)} />
-        <Dishdetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
-      </View>
+        <MenuContainer />
     );
   }
 }
