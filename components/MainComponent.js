@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import MenuScreen from './MenuComponent';
+import HomeScreen from './HomeComponent';
 import { DISHES } from '../shared/dishes';
 import DishDetailScreen from './DishDetailComponent';
-import { View, Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 const MenuNavigator = createStackNavigator(
   {
@@ -16,25 +17,26 @@ const MenuNavigator = createStackNavigator(
   }
 );
 
-const MenuContainer = createAppContainer(MenuNavigator);
+const HomeNavigator = createStackNavigator({
+  Home: HomeScreen
+});
+
+const MainNavigator = createDrawerNavigator({
+  Home: {
+    screen: HomeNavigator,
+  },
+  Menu: {
+    screen: MenuNavigator,
+  },
+});
+
+const MainContainer = createAppContainer(MainNavigator);
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dishes: DISHES,
-      selectedDish: null
-    };
-  }
-
-  onDishSelect(dishId) {
-    this.setState({selectedDish: dishId})
-  }
-
   render() {
  
     return (
-        <MenuContainer />
+        <MainContainer />
     );
   }
 }

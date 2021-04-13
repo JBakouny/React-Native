@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DISHES } from '../shared/dishes';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Button } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 
 class Menu extends Component {
@@ -34,11 +34,17 @@ class Menu extends Component {
     };
 
     return (
+      <View>
             <FlatList 
                 data={this.state.dishes}
                 renderItem={renderMenuItem}
                 keyExtractor={item => item.id.toString()}
                 />
+            <Button
+                onPress={() => this.props.navigation.openDrawer()}
+                title="Drawer"
+            />
+      </View>
     );
   }
 }
