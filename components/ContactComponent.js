@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { Card } from 'react-native-elements';
 
  class Contact extends Component {
@@ -19,6 +19,10 @@ import { Card } from 'react-native-elements';
                     <Text style={{margin: 10}}>Fax: +852 8765 4321</Text>
                     <Text style={{margin: 10}}>Email:confusion@food.net</Text>     
                 </Card>
+                <Button
+                    onPress={() => this.props.navigation.openDrawer()}
+                    title="Drawer"
+                    />
             </View>
         );
     }

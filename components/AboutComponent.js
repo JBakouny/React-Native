@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { Card, ListItem, Avatar } from 'react-native-elements';
-import { LEADERS } from '../shared/leaders';
+import { FlatList, Button } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
+const mapStateToProps = state => {
+    return {
+      leaders: state.leaders
+    }
+  }
 
  class About extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            leaders: LEADERS
-        };
-    }
 
     static navigationOptions = {
         title: 'About Us'
@@ -19,10 +18,10 @@ import { LEADERS } from '../shared/leaders';
 
      render() {
 
-        const renderLeaders = ({item, index}) => {
+        const renderLeader = ({item, index}) => {
             return (
                     <ListItem key={index} bottomDivider>
-                    <Avatar source={ require('./images/alberto.png') }/>
+                    <Avatar source= {{uri: baseUrl + item.image}}/>
                     <ListItem.Content>
                       <ListItem.Title>{item.name}</ListItem.Title>
                       <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
@@ -33,12 +32,16 @@ import { LEADERS } from '../shared/leaders';
 
         return(
                 <FlatList 
-                    data={this.state.leaders}
-                    renderItem={renderLeaders}
+                    data={this.props.leaders.leaders}
+                    renderItem={renderLeader}
                     keyExtractor={item => item.id.toString()}
+                    ListFooterComponent={<Button
+                    onPress={() => this.props.navigation.openDrawer()}
+                    title="Drawer"
+                    />}
                     />
         );
     }
 }
 
- export default About;
+export default connect(mapStateToProps)(About);
