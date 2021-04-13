@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import MenuScreen from './MenuComponent';
 import HomeScreen from './HomeComponent';
-import { DISHES } from '../shared/dishes';
+import ContactScreen from './ContactComponent';
+import AboutScreen from './AboutComponent';
 import DishDetailScreen from './DishDetailComponent';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -21,6 +22,15 @@ const HomeNavigator = createStackNavigator({
   Home: HomeScreen
 });
 
+const ContactNavigator = createStackNavigator({
+  Contact: ContactScreen
+});
+
+
+const AboutNavigator = createStackNavigator({
+  About: AboutScreen
+});
+
 const MainNavigator = createDrawerNavigator({
   Home: {
     screen: HomeNavigator,
@@ -28,6 +38,12 @@ const MainNavigator = createDrawerNavigator({
   Menu: {
     screen: MenuNavigator,
   },
+  Contact : {
+    screen : ContactNavigator
+  },
+  About : {
+    screen : AboutScreen
+  }
 });
 
 const MainContainer = createAppContainer(MainNavigator);
