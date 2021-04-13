@@ -26,6 +26,18 @@ const mapDispatchToProps = dispatch => ({
   fetchLeaders: () => dispatch(fetchLeaders()),
 })
 
+const navConfig = {
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    }
+  }
+}
+
 
 const MenuNavigator = createStackNavigator(
   {
@@ -33,22 +45,22 @@ const MenuNavigator = createStackNavigator(
     DishDetail: DishDetailScreen,
   },
   {
-    initialRouteName: 'Menu'
+    initialRouteName: 'Menu',
+    ...navConfig
   }
 );
 
 const HomeNavigator = createStackNavigator({
   Home: HomeScreen
-});
+}, navConfig);
 
 const ContactNavigator = createStackNavigator({
   Contact: ContactScreen
-});
-
+}, navConfig);
 
 const AboutNavigator = createStackNavigator({
   About: AboutScreen
-});
+}, navConfig);
 
 const MainNavigator = createDrawerNavigator({
   Home: {
@@ -61,7 +73,18 @@ const MainNavigator = createDrawerNavigator({
     screen : ContactNavigator
   },
   About : {
-    screen : AboutScreen
+    screen : AboutNavigator
+  }
+}, {
+  drawerBackgroundColor : "green",
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    }
   }
 });
 

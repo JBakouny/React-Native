@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Button } from 'react-native';
+import { FlatList, Button, View } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -31,6 +31,7 @@ const mapStateToProps = state => {
         };
 
         return(
+            <View>
                 <FlatList 
                     data={this.props.leaders.leaders}
                     renderItem={renderLeader}
@@ -40,6 +41,7 @@ const mapStateToProps = state => {
                     title="Drawer"
                     />}
                     />
+            </View>
         );
     }
 }

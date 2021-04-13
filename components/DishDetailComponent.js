@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card } from 'react-native-elements';
-import { Text, View, SafeAreaView, FlatList } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -68,13 +68,13 @@ class DishDetail extends Component {
     render() {
         const dishId = this.props.navigation.getParam('dishId','');
         return(
-            <SafeAreaView>
+            <View>
                 <RenderDish dish={this.props.dishes.dishes[+dishId]}
                    // favorite={this.state.favorites.some(el => el === dishId)}
                     onPress={() => this.markFavorite(dishId)} 
                     />
                 <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)} />
-            </SafeAreaView>
+            </View>
         );
     }
 }
