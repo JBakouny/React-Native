@@ -9,6 +9,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import ReservationScreen from './ReservationComponent';
 
 const mapStateToProps = state => {
   return {
@@ -62,6 +63,10 @@ const AboutNavigator = createStackNavigator({
   About: AboutScreen
 }, navConfig);
 
+const ReservationNavigator = createStackNavigator({
+  Reservation: ReservationScreen
+}, navConfig);
+
 // Drawer navigator can be replaced by TabNavigator
 const MainNavigator = createDrawerNavigator({
   Home: {
@@ -75,6 +80,9 @@ const MainNavigator = createDrawerNavigator({
   },
   About : {
     screen : AboutNavigator
+  },
+  Reservation: {
+    screen : ReservationNavigator
   }
 }, {
   drawerBackgroundColor : "green"
