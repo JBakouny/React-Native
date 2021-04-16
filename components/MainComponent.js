@@ -62,6 +62,7 @@ const AboutNavigator = createStackNavigator({
   About: AboutScreen
 }, navConfig);
 
+// Drawer navigator can be replaced by TabNavigator
 const MainNavigator = createDrawerNavigator({
   Home: {
     screen: HomeNavigator,
@@ -76,16 +77,7 @@ const MainNavigator = createDrawerNavigator({
     screen : AboutNavigator
   }
 }, {
-  drawerBackgroundColor : "green",
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: 'green',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    }
-  }
+  drawerBackgroundColor : "green"
 });
 
 const MainContainer = createAppContainer(MainNavigator);
