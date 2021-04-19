@@ -49,74 +49,84 @@ function RenderComments(props) {
     );
 }
 
-function RenderDish(props) {
 
-    const dish = props.dish;
-    const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
-        if ( dx < -200 )
-            return true;
-        else
-            return false;
-    }
+class RenderDish extends Component {
 
-    const panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: (e, gestureState) => {
-            return true;
-        },
-        onPanResponderEnd: (e, gestureState) => {
-            console.log("pan responder end", gestureState);
-            if (recognizeDrag(gestureState))
-                Alert.alert(
-                    'Add Favorite',
-                    'Are you sure you wish to add ' + dish.name + ' to favorite?',
-                    [
-                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                    {text: 'OK', onPress: () => {props.favorite ? console.log('Already favorite') : props.onPress()}},
-                    ],
-                    { cancelable: false }
+    handleViewRef = ref => this.view = ref;
+
+    render() {
+        const dish = this.props.dish;
+
+        const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
+            if ( dx < -200 )
+                return true;
+            else
+                return false;
+        }
+
+        const panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (e, gestureState) => {
+                return true;
+            },
+            onPanResponderEnd: (e, gestureState) => {
+                console.log("pan responder end", gestureState);
+                if (recognizeDrag(gestureState))
+                    Alert.alert(
+                        'Add Favorite',
+                        'Are you sure you wish to add ' + dish.name + ' to favorite?',
+                        [
+                        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        {text: 'OK', onPress: () => {this.props.favorite ? console.log('Already favorite') : this.props.onPress()}},
+                        ],
+                        { cancelable: false }
+                    );
+
+                return true;
+            },
+            onPanResponderGrant: () => {this.view.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));}
+        })
+
+
+
+        if (dish != null) {
+            return(
+                <Animatable.View animation="fadeInDown" duration={2000} delay={1000}
+                ref={this.handleViewRef}
+                {...panResponder.panHandlers}>
+                
+                    <Card>
+                        <Card.Title>{dish.name}</Card.Title>
+                        <Card.Divider/>
+                        <Card.Image source={{uri: baseUrl + dish.image}}/>
+                        <Text style={{margin: 10}}>
+                            {dish.description}
+                        </Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <Icon
+                                raised
+                                reverse
+                                name={this.props.favorite ? 'heart' : 'heart-o'}
+                                type='font-awesome'
+                                color='#f50'
+                                onPress={() => this.props.favorite ? console.log('Already favorite') : this.props.onPress()}
+                            />
+                            <Icon
+                                raised
+                                reverse
+                                name={'pencil'}
+                                type='font-awesome'
+                                color='#512DA8'
+                                onPress={() => props.onComment()}
+                            />
+                        </View>
+                    </Card>
+                    </Animatable.View>
                 );
-
-            return true;
-        }
-    })
-
-    if (dish != null) {
-        return(
-            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}
-            {...panResponder.panHandlers}>
-            
-                <Card>
-                    <Card.Title>{dish.name}</Card.Title>
-                    <Card.Divider/>
-                    <Card.Image source={{uri: baseUrl + dish.image}}/>
-                    <Text style={{margin: 10}}>
-                        {dish.description}
-                    </Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <Icon
-                            raised
-                            reverse
-                            name={props.favorite ? 'heart' : 'heart-o'}
-                            type='font-awesome'
-                            color='#f50'
-                            onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
-                        />
-                        <Icon
-                            raised
-                            reverse
-                            name={'pencil'}
-                            type='font-awesome'
-                            color='#512DA8'
-                            onPress={() => props.onComment()}
-                        />
-                    </View>
-                </Card>
-                </Animatable.View>
-            );
-        }
-        else {
-            return(<View></View>);
-        }
+            }
+            else {
+                return(<View></View>);
+            }
+    }
 }
 
 class DishDetail extends Component {
