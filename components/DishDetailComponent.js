@@ -64,6 +64,11 @@ class RenderDish extends Component {
                 return false;
         }
 
+        const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+            if ( dx > 200 ) return true;
+            else return false;
+        }
+
         const panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (e, gestureState) => {
                 return true;
@@ -80,6 +85,9 @@ class RenderDish extends Component {
                         ],
                         { cancelable: false }
                     );
+                if (recognizeComment(gestureState)) {
+                    this.props.onComment();
+                }
 
                 return true;
             },
@@ -116,7 +124,7 @@ class RenderDish extends Component {
                                 name={'pencil'}
                                 type='font-awesome'
                                 color='#512DA8'
-                                onPress={() => props.onComment()}
+                                onPress={() => this.props.onComment()}
                             />
                         </View>
                     </Card>
