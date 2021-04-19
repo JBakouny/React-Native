@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text, Button, Alert } from 'react-native';
+import { FlatList, View, StyleSheet, Animated, Text, Button, Alert } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import Swipeout from 'react-native-swipeout';
+import { RectButton, Swipeable } from 'react-native-gesture-handler';
 import { deleteFavorite } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
@@ -31,34 +32,64 @@ class Favorites extends Component {
         const { navigate } = this.props.navigation;
         
         const renderMenuItem = ({item, index}) => {
-            const rightButton = [
-                {
-                    text: 'Delete', 
-                    type: 'delete',
-                    onPress: () => {
-                        Alert.alert(
-                            'Delete Favorite?',
-                            'Are you sure you wish to delete the favorite dish ' + item.name + '?',
-                            [
-                                { 
-                                    text: 'Cancel', 
-                                    onPress: () => console.log(item.name + 'Not Deleted'),
-                                    style: ' cancel'
-                                },
-                                {
-                                    text: 'OK',
-                                    onPress: () => this.props.deleteFavorite(item.id)
-                                }
-                            ],
-                            { cancelable: false }
-                        );
-                        
+            const onPressAction = () => {
+                Alert.alert(
+                    'Delete Favorite?',
+                    'Are you sure you wish to delete the favorite dish ' + item.name + '?',
+                    [
+                        { 
+                            text: 'Cancel', 
+                            onPress: () => console.log(item.name + 'Not Deleted'),
+                            style: ' cancel'
+                        },
+                        {
+                            text: 'OK',
+                            onPress: () => this.props.deleteFavorite(item.id)
+                        }
+                    ],
+                    { cancelable: false }
+                );
+                
+            }
+
+                const styles = StyleSheet.create({
+                    leftAction: {
+                      flex: 1,
+                      backgroundColor: 'red',
+                      justifyContent: 'center',
+                    },
+                    actionText: {
+                      color: 'white',
+                      fontSize: 16,
+                      backgroundColor: 'transparent',
+                      padding: 10,
                     }
-                }
-            ];
+                  });
+                  
+
+                const leftButton = (progress, dragX) => {
+                    const trans = dragX.interpolate({
+                      inputRange: [0, 50, 100, 101],
+                      outputRange: [-20, 0, 0, 1],
+                    });
+                    return (
+                      <RectButton style={styles.leftAction} onPress={onPressAction}>
+                        <Animated.Text
+                          style={[
+                              styles.actionText,
+                            {
+                              transform: [{ translateX: trans }],
+                            },
+                          ]}>
+                          Delete
+                        </Animated.Text>
+                      </RectButton>
+                    );
+                  };
 
             return (
-                <Swipeout right={rightButton} autoClose={true}>
+                <Swipeable
+                    renderLeftActions={leftButton} >
                     <ListItem key={index} onPress={() => navigate('DishDetail', { dishId: item.id })} bottomDivider>
                         <Avatar source={{ uri: baseUrl + item.image}}/>
                         <ListItem.Content>
@@ -66,7 +97,7 @@ class Favorites extends Component {
                             <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
-                </Swipeout>
+                </Swipeable>
             );
         };
 
