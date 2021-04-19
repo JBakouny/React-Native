@@ -5,6 +5,7 @@ import ContactScreen from './ContactComponent';
 import AboutScreen from './AboutComponent';
 import DishDetailScreen from './DishDetailComponent';
 import FavoritesScreen from './FavoriteComponent';
+import LoginScreen from './LoginComponent';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -61,6 +62,9 @@ const FavoritesNavigator = createStackNavigator({
     ...navConfig
   }
 );
+const LoginNavigator = createStackNavigator({
+  Login: LoginScreen
+}, navConfig);
 
 const HomeNavigator = createStackNavigator({
   Home: HomeScreen
@@ -99,6 +103,9 @@ const MainNavigator = createDrawerNavigator({
   },
   Favorites: {
     screen : FavoritesNavigator
+  },
+  Login : {
+    screen : LoginNavigator
   }
 }, {
   drawerBackgroundColor : "green"
