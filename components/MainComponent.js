@@ -4,6 +4,7 @@ import HomeScreen from './HomeComponent';
 import ContactScreen from './ContactComponent';
 import AboutScreen from './AboutComponent';
 import DishDetailScreen from './DishDetailComponent';
+import FavoritesScreen from './FavoriteComponent';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -51,6 +52,16 @@ const MenuNavigator = createStackNavigator(
   }
 );
 
+const FavoritesNavigator = createStackNavigator({
+    Favorites: FavoritesScreen,
+    DishDetail: DishDetailScreen,
+  },
+  {
+    initialRouteName: 'Favorites',
+    ...navConfig
+  }
+);
+
 const HomeNavigator = createStackNavigator({
   Home: HomeScreen
 }, navConfig);
@@ -66,6 +77,8 @@ const AboutNavigator = createStackNavigator({
 const ReservationNavigator = createStackNavigator({
   Reservation: ReservationScreen
 }, navConfig);
+
+
 
 // Drawer navigator can be replaced by TabNavigator
 const MainNavigator = createDrawerNavigator({
@@ -83,6 +96,9 @@ const MainNavigator = createDrawerNavigator({
   },
   Reservation: {
     screen : ReservationNavigator
+  },
+  Favorites: {
+    screen : FavoritesNavigator
   }
 }, {
   drawerBackgroundColor : "green"
