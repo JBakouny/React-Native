@@ -6,6 +6,7 @@ import { comments } from './comments';
 import { promotions } from './promotions';
 import { leaders } from './leaders';
 import { favorites } from './favorites';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -15,8 +16,9 @@ export const ConfigureStore = () => {
             promotions,
             leaders,
             favorites
-        }),
-        applyMiddleware(thunk, logger)
+        }), composeWithDevTools(
+            applyMiddleware(thunk, logger),
+        )
     );
 
     return store;
