@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { FlatList, Button, View } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
+import { FlatList, Button, ScrollView } from 'react-native';
+import { ListItem, Avatar, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -34,9 +35,8 @@ const mapStateToProps = state => {
         if (this.props.leaders.isLoading) {
           return(
               <ScrollView>
-                  <History />
-                  <Card
-                      title='Corporate Leadership'>
+                  <Card>
+                      <Card.Title> Corporate Leadership</Card.Title>
                       <Loading />
                   </Card>
               </ScrollView>
@@ -45,9 +45,8 @@ const mapStateToProps = state => {
         else if (this.props.leaders.errMess) {
             return(
                 <ScrollView>
-                    <History />
-                    <Card
-                        title='Corporate Leadership'>
+                    <Card>
+                        <Card.Title> Corporate Leadership</Card.Title>
                         <Text>{this.props.leaders.errMess}</Text>
                     </Card>
                 </ScrollView>
@@ -55,17 +54,22 @@ const mapStateToProps = state => {
         }
         else {
             return(
-            <View>
-                <FlatList 
-                    data={this.props.leaders.leaders}
-                    renderItem={renderLeader}
-                    keyExtractor={item => item.id.toString()}
-                    ListFooterComponent={<Button
-                    onPress={() => this.props.navigation.openDrawer()}
-                    title="Drawer"
-                    />}
-                    />
-            </View>
+                <ScrollView>
+                    <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                        <Card>
+                            <Card.Title> Corporate Leadership</Card.Title>
+                        <FlatList 
+                            data={this.props.leaders.leaders}
+                            renderItem={renderLeader}
+                            keyExtractor={item => item.id.toString()}
+                            ListFooterComponent={<Button
+                            onPress={() => this.props.navigation.openDrawer()}
+                            title="Drawer"
+                            />}
+                            />
+                        </Card>
+                    </Animatable.View>
+                </ScrollView>
           );
         }
   }
