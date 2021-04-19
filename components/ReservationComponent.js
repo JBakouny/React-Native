@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import DatePicker from 'react-native-datepicker'
 import { Text, ScrollView, View, StyleSheet, Switch, Button, Modal, Alert } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import * as Animatable from 'react-native-animatable';
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
 
 class Reservation extends Component {
 
@@ -24,6 +27,30 @@ class Reservation extends Component {
         this.setState({showModal: !this.state.showModal});
     }
 
+    async obtainNotificationPermission() {
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    }
+
+    // see https://docs.expo.io/versions/latest/sdk/notifications/
+    async presentLocalNotification(date) {
+        await this.obtainNotificationPermission();
+        await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Your Reservation",
+              body: 'Reservation for '+ date + ' requested',
+              data: { data: 'goes here' },
+            },
+            trigger: { seconds: 2 },
+          });
+    }
+
     handleReservation() {
         console.log(JSON.stringify(this.state));
         Alert.alert(
@@ -31,7 +58,7 @@ class Reservation extends Component {
             'Number of Guests: ' + this.state.guests + '\nSmoking? '+ this.state.smoking +'\nDate and Time:' + this.state.date,
             [
             {text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); this.resetForm();}, style: 'cancel'},
-            {text: 'OK', onPress: () => { this.resetForm(); }},
+            {text: 'OK', onPress: () => { this.resetForm(); this.presentLocalNotification(this.state.date)}},
             ],
             { cancelable: false }
         );
