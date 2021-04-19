@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text, Button } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
@@ -49,11 +49,17 @@ class Favorites extends Component {
         }
         else {
             return (
-                <FlatList 
+                <View>
+                    <FlatList 
                     data={this.props.dishes.dishes.filter(dish => this.props.favorites.some(el => el === dish.id))}
                     renderItem={renderMenuItem}
                     keyExtractor={item => item.id.toString()}
                     />
+                    <Button
+                    onPress={() => this.props.navigation.openDrawer()}
+                    title="Drawer"
+                    />
+                </View>
             );
         }
     }

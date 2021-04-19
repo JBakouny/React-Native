@@ -106,11 +106,15 @@ class Reservation extends Component {
                 />
                 </View>
                 <View style={styles.formRow}>
-                <Button
+                    <Button
                     onPress={() => this.handleReservation()}
                     title="Reserve"
                     color="#512DA8"
                     accessibilityLabel="Learn more about this purple button"
+                    />
+                    <Button
+                    onPress={() => this.props.navigation.openDrawer()}
+                    title="Drawer"
                     />
                 </View>
             </ScrollView>
