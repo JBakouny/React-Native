@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View, Button, Animated, Easing  } from 'react-native';
+// https://reactnative.dev/docs/animated
+import { Text, View, Animated, Easing  } from 'react-native';
+// https://reactnativeelements.com/docs/card
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -56,6 +58,7 @@ class Home extends Component {
         this.animatedValue = new Animated.Value(0);        
     }
 
+    // https://reactnavigation.org/docs/4.x/headers/
     static navigationOptions = {
         title: 'Home',
     };

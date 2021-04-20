@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
+// https://docs.expo.io/versions/latest/sdk/mail-composer/
 import * as MailComposer from 'expo-mail-composer';
 
  class Contact extends Component {

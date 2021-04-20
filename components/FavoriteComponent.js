@@ -4,7 +4,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-import Swipeout from 'react-native-swipeout';
+// see https://docs.swmansion.com/react-native-gesture-handler/docs/api/components/swipeable
 import { RectButton, Swipeable } from 'react-native-gesture-handler';
 import { deleteFavorite } from '../redux/ActionCreators';
 
@@ -66,7 +66,7 @@ class Favorites extends Component {
                     }
                   });
                   
-
+                  // see https://docs.swmansion.com/react-native-gesture-handler/docs/example
                 const leftButton = (progress, dragX) => {
                     const trans = dragX.interpolate({
                       inputRange: [0, 50, 100, 101],

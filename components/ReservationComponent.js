@@ -4,6 +4,7 @@ import { Text, ScrollView, View, StyleSheet, Switch, Button, Modal, Alert } from
 import {Picker} from '@react-native-picker/picker';
 import * as Animatable from 'react-native-animatable';
 import * as Permissions from 'expo-permissions';
+// https://docs.expo.io/versions/latest/sdk/notifications/
 import * as Notifications from 'expo-notifications';
 
 class Reservation extends Component {

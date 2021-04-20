@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+// https://reactnative.dev/docs/flatlist
 import { View, FlatList, Button, Text } from 'react-native';
+// https://reactnativeelements.com/docs/listitem
 import { ListItem, Avatar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -22,6 +24,9 @@ class Menu extends Component {
     const { navigate } = this.props.navigation;
 
     const renderMenuItem = ({item, index}) => {
+
+        //https://reactnative.dev/docs/image
+        //https://reactnativeelements.com/docs/avatar
 
         return (
                 <ListItem key={index} onPress={() => navigate('DishDetail', { dishId: item.id })} bottomDivider>

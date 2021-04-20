@@ -84,7 +84,8 @@ const ReservationNavigator = createStackNavigator({
 
 
 
-// Drawer navigator can be replaced by TabNavigator
+// Drawer navigator
+// https://reactnavigation.org/docs/4.x/drawer-based-navigation/
 const MainNavigator = createDrawerNavigator({
   Home: {
     screen: HomeNavigator,

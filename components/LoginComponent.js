@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Input, CheckBox, Button, Icon } from 'react-native-elements';
+// https://reactnavigation.org/docs/4.x/tab-based-navigation
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { baseUrl } from '../shared/baseUrl';
+// https://docs.expo.io/versions/latest/sdk/securestore/
 import * as SecureStore from 'expo-secure-store';
+// https://docs.expo.io/versions/v36.0.0/sdk/permissions/
 import * as Permissions from 'expo-permissions';
+// https://docs.expo.io/versions/latest/sdk/imagepicker/
 import * as ImagePicker from 'expo-image-picker';
 
 class LoginTab extends Component {
